@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nicholas Antel — Tech Visionary & Builder</title>
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #111118;
+      --card: #16161f;
+      --border: #2a2a3a;
+      --accent: #7c3aed;
+      --accent2: #06b6d4;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --glow: rgba(124, 58, 237, 0.35);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      line-height: 1.6; overflow-x: hidden;
+    }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 6vw;
+      background: rgba(10,10,15,0.88); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .logo { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.85rem;
+      letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent2); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+      padding: 7rem 6vw 5rem; position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(124,58,237,0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124,58,237,0.07) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 100%);
+    }
+    #hero::after {
+      content: ''; position: absolute; top: 15%; left: 45%; transform: translateX(-50%);
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--accent2); margin-bottom: 1.2rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .hero-tag::before { content: ''; display: block; width: 2rem; height: 1px; background: var(--accent2); }
+    h1 { font-size: clamp(2.6rem, 6.5vw, 5rem); font-weight: 800; line-height: 1.05; letter-spacing: -2px; }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: var(--muted);
+      max-width: 620px; margin-top: 1.4rem; margin-bottom: 1.2rem; line-height: 1.85;
+    }
+    .hero-pills { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 2.5rem; }
+    .pill {
+      font-size: 0.75rem; padding: 0.28rem 0.85rem; border-radius: 20px;
+      border: 1px solid var(--border); color: var(--muted); letter-spacing: 0.05em;
+    }
+    .pill.lit { border-color: var(--accent); color: var(--accent); background: rgba(124,58,237,0.08); }
+    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem; border-radius: 6px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: all 0.22s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 0 24px var(--glow); }
+    .btn-primary:hover { background: #6d28d9; box-shadow: 0 0 40px var(--glow); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* SECTIONS */
+    section { padding: 6rem 6vw; }
+    .section-label { font-size: 0.74rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 0.5rem; }
+    h2 { font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 700; letter-spacing: -1px; margin-bottom: 0.8rem; }
+    .divider { width: 3rem; height: 3px; background: linear-gradient(90deg, var(--accent), var(--accent2)); border-radius: 2px; margin-bottom: 3rem; }
+
+    /* ABOUT */
+    #about { background: var(--bg2); }
+    .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 4rem; align-items: start; }
+    .about-text p { color: var(--muted); margin-bottom: 1rem; font-size: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: 2rem; }
+    .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.4rem; }
+    .stat-num {
+      font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 0.78rem; color: var(--muted); margin-top: 0.15rem; }
+    .skill-col h3 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 0.7rem; margin-top: 1.4rem; }
+    .skill-col h3:first-child { margin-top: 0; }
+    .tech-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tech-pill {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); font-size: 0.8rem;
+      padding: 0.3rem 0.8rem; border-radius: 20px; transition: border-color 0.2s, color 0.2s;
+    }
+    .tech-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* EXPERIENCE */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 6px; bottom: 6px; width: 2px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+      border-radius: 2px;
+    }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.8rem; }
+    .timeline-dot {
+      position: absolute; left: -2.42rem; top: 6px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent); border: 2px solid var(--bg); box-shadow: 0 0 10px var(--glow);
+    }
+    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.4rem; }
+    .tl-role { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .tl-company { color: var(--accent2); font-size: 0.85rem; margin-bottom: 0.2rem; }
+    .tl-date { font-size: 0.75rem; color: var(--muted); border: 1px solid var(--border); padding: 0.2rem 0.6rem; border-radius: 4px; white-space: nowrap; }
+    .tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+
+    /* PROJECTS */
+    #projects { background: var(--bg2); }
+    .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; display: flex; flex-direction: column;
+    }
+    .project-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 40px rgba(124,58,237,0.15); }
+    .project-card.featured { grid-column: span 2; }
+    .project-banner { height: 130px; display: flex; align-items: center; justify-content: center; font-size: 2.4rem; position: relative; overflow: hidden; }
+    .project-card.featured .project-banner { height: 160px; }
+    .project-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--card) 100%); }
+    .project-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.85rem; }
+    .tag { font-size: 0.7rem; padding: 0.18rem 0.55rem; border-radius: 4px; font-weight: 600; }
+    .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .project-desc { font-size: 0.86rem; color: var(--muted); flex: 1; margin-bottom: 1.1rem; line-height: 1.7; }
+    .project-links { display: flex; gap: 0.7rem; }
+    .link-btn {
+      font-size: 0.8rem; padding: 0.38rem 0.9rem; border-radius: 5px;
+      text-decoration: none; font-weight: 600;
+      border: 1px solid var(--border); color: var(--muted); transition: all 0.2s;
+    }
+    .link-btn:hover { border-color: var(--accent2); color: var(--accent2); }
+    .link-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .link-btn.primary:hover { background: #6d28d9; }
+
+    /* PATENTS */
+    #patents { background: var(--bg2); }
+    .patents-intro { color: var(--muted); font-size: 1rem; max-width: 680px; margin-bottom: 2.5rem; line-height: 1.8; }
+    .patents-intro strong { color: var(--text); }
+    .patent-list { display: flex; flex-direction: column; gap: 1rem; }
+    .patent-item {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.3rem 1.6rem;
+      display: grid; grid-template-columns: auto 1fr auto;
+      gap: 1rem; align-items: start;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .patent-item:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(124,58,237,0.12); }
+    .patent-icon {
+      width: 42px; height: 42px; border-radius: 8px; flex-shrink: 0;
+      background: rgba(124,58,237,0.12); border: 1px solid rgba(124,58,237,0.25);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .patent-body { min-width: 0; }
+    .patent-title { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 0.3rem; }
+    .patent-meta { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.4rem; }
+    .patent-num {
+      font-size: 0.72rem; font-family: monospace;
+      background: var(--bg); border: 1px solid var(--border);
+      color: var(--accent2); padding: 0.15rem 0.6rem; border-radius: 4px;
+    }
+    .patent-assignee { font-size: 0.75rem; color: var(--muted); }
+    .patent-date { font-size: 0.75rem; color: var(--muted); }
+    .patent-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.65; }
+    .patent-status {
+      font-size: 0.7rem; font-weight: 700; padding: 0.22rem 0.65rem;
+      border-radius: 20px; white-space: nowrap; align-self: start;
+    }
+    .patent-status.granted { background: rgba(5,150,105,0.15); color: #34d399; border: 1px solid rgba(52,211,153,0.3); }
+    .patent-status.filed { background: rgba(6,182,212,0.12); color: var(--accent2); border: 1px solid rgba(6,182,212,0.3); }
+    .patent-status.pending { background: rgba(245,158,11,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+    .patent-links-row { display: flex; gap: 0.6rem; margin-top: 0.7rem; flex-wrap: wrap; }
+    .patent-link {
+      font-size: 0.75rem; padding: 0.25rem 0.7rem; border-radius: 4px;
+      text-decoration: none; font-weight: 600;
+      border: 1px solid var(--border); color: var(--muted); transition: all 0.2s;
+    }
+    .patent-link:hover { border-color: var(--accent2); color: var(--accent2); }
+
+    /* BLOG */
+    #blog { background: var(--bg); }
+    .blog-header-row {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      flex-wrap: wrap; gap: 1rem; margin-bottom: 3rem;
+    }
+    .blog-header-row .divider { margin-bottom: 0; }
+    .medium-badge {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 0.5rem 1.1rem; border-radius: 8px;
+      text-decoration: none; font-size: 0.82rem; color: var(--muted);
+      transition: all 0.2s;
+    }
+    .medium-badge:hover { border-color: var(--accent2); color: var(--accent2); }
+    .medium-badge .dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--accent2); box-shadow: 0 0 6px var(--accent2);
+    }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+    .blog-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .blog-card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 8px 40px rgba(124,58,237,0.15); }
+    .blog-card-top {
+      height: 6px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .blog-card-body { padding: 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-meta { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.85rem; }
+    .blog-cat {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem;
+      border-radius: 4px; background: rgba(124,58,237,0.15); color: var(--accent);
+    }
+    .blog-date { font-size: 0.75rem; color: var(--muted); }
+    .blog-title {
+      font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem;
+      color: var(--text); line-height: 1.4;
+    }
+    .blog-excerpt { font-size: 0.85rem; color: var(--muted); flex: 1; margin-bottom: 1.1rem; line-height: 1.7; }
+    .blog-link {
+      font-size: 0.82rem; font-weight: 600; color: var(--accent2);
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .blog-link:hover { gap: 0.6rem; }
+    .blog-cta-row {
+      margin-top: 3rem; text-align: center;
+      display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+    }
+    .blog-cta-row p { color: var(--muted); font-size: 0.9rem; }
+
+    /* CONTACT */
+    #contact { background: var(--bg2); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 1.4fr; gap: 4rem; align-items: start; }
+    .contact-info p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; line-height: 1.8; }
+    .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-link { display: flex; align-items: center; gap: 0.75rem; color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color 0.2s; }
+    .contact-link:hover { color: var(--accent2); }
+    .contact-link-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--card); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    form { display: flex; flex-direction: column; gap: 1.1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); display: block; margin-bottom: 0.4rem; }
+    input, textarea {
+      width: 100%; background: var(--card); border: 1px solid var(--border);
+      color: var(--text); border-radius: 7px; padding: 0.75rem 1rem;
+      font-size: 0.93rem; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s; outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(124,58,237,0.14); }
+    textarea { resize: vertical; min-height: 130px; }
+    .submit-btn {
+      background: linear-gradient(135deg, var(--accent), #4f46e5); color: #fff;
+      border: none; border-radius: 7px; padding: 0.85rem 2rem;
+      font-size: 0.95rem; font-weight: 700; cursor: pointer;
+      transition: all 0.2s; box-shadow: 0 0 20px var(--glow); align-self: flex-start;
+    }
+    .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 0 32px var(--glow); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem 6vw; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.8rem; }
+    footer span { color: var(--accent); }
+
+    /* ANIMATIONS */
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
+      .form-row, .projects-grid { grid-template-columns: 1fr; }
+      .project-card.featured { grid-column: span 1; }
+      .nav-links { display: none; }
+      h1 { letter-spacing: -1px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#hero">N.<span>Antel</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#patents">Patents</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">Open to new opportunities</div>
+  <h1>Nicholas<br><span class="gradient-text">Antel</span></h1>
+  <p class="hero-sub">
+    Entrepreneurial technologist bridging <strong style="color:var(--text)">AI systems</strong>, <strong style="color:var(--text)">emerging tech</strong>, and <strong style="color:var(--text)">intellectual property</strong>. I build ventures, author patents, and ship AI agents that solve real industry problems.
+  </p>
+  <div class="hero-pills">
+    <span class="pill lit">AI Agent Builder</span>
+    <span class="pill lit">IP Strategist</span>
+    <span class="pill lit">Patent Author</span>
+    <span class="pill">Tech Consultant</span>
+    <span class="pill">Startup Founder</span>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="fade-up">
+    <p class="section-label">// who i am</p>
+    <h2>About Me</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="about-grid fade-up">
+    <div class="about-text">
+      <p>I'm an <strong>entrepreneurial technologist</strong> based in Winona, MO with a rare blend of skills across emerging tech, business strategy, and intellectual property. I don't just advise on technology — I build it, patent it, and bring it to market.</p>
+      <p>My career spans co-developing <strong>Walmart's UAV program</strong> with first-to-file patents, building <strong>IoT cybersecurity frameworks</strong>, and now shipping <strong>AI agent systems</strong> for industry-specific automation.</p>
+      <p>I operate with a start-up mindset — moving fast, connecting technology with market needs, and turning ideas into deployable products. My current focus is AI solutions for real-world business workflows.</p>
+      <div class="about-stats">
+        <div class="stat-box">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Years in Emerging Tech</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Active Ventures Founded</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">UAV</div>
+          <div class="stat-label">First-to-File Patents</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Problems to Solve</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skill-col">
+      <h3>AI & Automation</h3>
+      <div class="tech-grid">
+        <span class="tech-pill">AI Agent Systems</span>
+        <span class="tech-pill">TypeScript</span>
+        <span class="tech-pill">LLM Orchestration</span>
+        <span class="tech-pill">Vercel</span>
+      </div>
+
+      <h3>Business & IP Strategy</h3>
+      <div class="tech-grid">
+        <span class="tech-pill">Patent Drafting</span>
+        <span class="tech-pill">IP Gap Analysis</span>
+        <span class="tech-pill">Business Development</span>
+        <span class="tech-pill">Market Analysis</span>
+        <span class="tech-pill">Strategic Planning</span>
+      </div>
+      <h3>Emerging Tech</h3>
+      <div class="tech-grid">
+        <span class="tech-pill">Artificial Intelligence</span>
+        <span class="tech-pill">IoT Cybersecurity</span>
+        <span class="tech-pill">UAV / Drone Systems</span>
+      </div>
+      <h3>Tools</h3>
+      <div class="tech-grid">
+        <span class="tech-pill">Excel & Data Analysis</span>
+        <span class="tech-pill">Product Management</span>
+        <span class="tech-pill">Statistical Analysis</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="fade-up">
+    <p class="section-label">// where i've been</p>
+    <h2>Experience</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="timeline fade-up">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-header">
+        <div>
+          <div class="tl-role">Partner</div>
+          <div class="tl-company">Tech Visionary Partners</div>
+        </div>
+        <span class="tl-date">2026 – Present · Winona, MO</span>
+      </div>
+      <p class="tl-desc">Building and testing AI solutions — evaluating, deploying, and iterating on AI systems to solve real-world problems across industries.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-header">
+        <div>
+          <div class="tl-role">Owner & Operator</div>
+          <div class="tl-company">Dynamic Innovative Solutions LLC</div>
+        </div>
+        <span class="tl-date">2025 – Present · Winona, MO</span>
+      </div>
+      <p class="tl-desc">Consulting in strategic planning, business development, and technology-driven solutions. Help clients streamline operations and leverage AI, emerging tech, and IP expertise for measurable results.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-header">
+        <div>
+          <div class="tl-role">Business Analyst</div>
+          <div class="tl-company">BGM3</div>
+        </div>
+        <span class="tl-date">2019</span>
+      </div>
+      <p class="tl-desc">Developed a 5-year strategic plan targeting $10B revenue growth. Built IoT cybersecurity frameworks, researched crypto-jacking prevention, and supported STEM initiatives across 4 school districts.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="tl-header">
+        <div>
+          <div class="tl-role">IP Consultant / Strategic Planner</div>
+          <div class="tl-company">Consultancy — Walmart UAV Program</div>
+        </div>
+        <span class="tl-date">2015 – 2018</span>
+      </div>
+      <p class="tl-desc">Led patent strategy and authored applications for Walmart's UAV drone program — securing first-to-file patents. Collaborated with NASA, DARPA, and FAA on unmanned aircraft systems and guided enterprise technology solution design.</p>
+    </div>
+
+  </div></div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="fade-up">
+    <p class="section-label">// what i've built</p>
+    <h2>Projects</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="projects-grid">
+
+    <div class="project-card featured fade-up">
+      <div class="project-banner" style="background: linear-gradient(135deg, #0d0221, #3b0764, #0e7490);">🤖</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag" style="background:#1e1b4b;color:#a5b4fc">TypeScript</span>
+          <span class="tag" style="background:#0c4a6e;color:#7dd3fc">AI Agents</span>
+          <span class="tag" style="background:#134e4a;color:#5eead4">Vercel</span>
+          <span class="tag" style="background:#2e1065;color:#c4b5fd">Multi-Agent Orchestration</span>
+        </div>
+        <div class="project-title">Silver-Octo-Fishstick — Supervisor AI Agent System</div>
+        <div class="project-desc">A Supervisor AI agent that orchestrates specialized subagents to complete industry-specific tasks. Users provide documentation as the knowledge base, enabling deep domain expertise without generic responses. Each subagent is purpose-built for its vertical. Built in TypeScript, deployed live on Vercel.</div>
+        <div class="project-links">
+          <a href="https://northwind-ai-widget.vercel.app" target="_blank" class="link-btn primary">Live Demo ↗</a>
+          <a href="https://github.com/antelnick-ops/silver-octo-fishstick" target="_blank" class="link-btn">GitHub ↗</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="project-card fade-up">
+      <div class="project-banner" style="background: linear-gradient(135deg, #0f2027, #1a3a4a);">✈️</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag" style="background:#134e4a;color:#5eead4">IP / Patents</span>
+          <span class="tag" style="background:#0c4a6e;color:#7dd3fc">UAV / Drones</span>
+          <span class="tag" style="background:#1e3a5f;color:#93c5fd">Federal</span>
+        </div>
+        <div class="project-title">Walmart UAV Patent Program</div>
+        <div class="project-desc">Led IP strategy and authored patent applications for Walmart's drone program securing first-to-file status. Coordinated with NASA, DARPA, and FAA on regulatory and technical strategy for commercial unmanned aircraft systems.</div>
+        <div class="project-links">
+          <span class="link-btn" style="cursor:default;opacity:0.55;">Case Study on Request</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card fade-up">
+      <div class="project-banner" style="background: linear-gradient(135deg, #0a1a0a, #15803d);">🔐</div>
+      <div class="project-body">
+        <div class="project-tags">
+          <span class="tag" style="background:#14532d;color:#86efac">IoT</span>
+          <span class="tag" style="background:#1e3a5f;color:#93c5fd">Cybersecurity</span>
+          <span class="tag" style="background:#1c1917;color:#d6d3d1">Enterprise</span>
+        </div>
+        <div class="project-title">IoT Cybersecurity Framework</div>
+        <div class="project-desc">Built comprehensive IoT security frameworks for enterprise environments including crypto-jacking prevention research and threat modeling for connected device ecosystems. Supported STEM education alignment across 4 school districts.</div>
+        <div class="project-links">
+          <span class="link-btn" style="cursor:default;opacity:0.55;">Case Study on Request</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PATENTS -->
+<section id="patents">
+  <div class="fade-up">
+    <p class="section-label">// intellectual property</p>
+    <h2>Patents</h2>
+    <div class="divider"></div>
+  </div>
+  <p class="patents-intro fade-up">
+    Named inventor on <strong>7 granted US patents</strong> and <strong>24 published applications</strong>, all assigned to <strong>Walmart Apollo LLC</strong>. Work spans autonomous drone systems, UAV delivery infrastructure, virtual/augmented retail, and autonomous vehicle ecosystems — authored during my IP consulting engagement with Walmart (2015–2018).
+  </p>
+
+  <!-- GRANTED PATENTS -->
+  <div class="fade-up" style="margin-bottom:1.2rem;">
+    <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:1rem;">Granted Patents</h3>
+  </div>
+  <div class="patent-list" style="margin-bottom:3rem;">
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🤖</div>
+      <div class="patent-body">
+        <div class="patent-title">Systems and Methods for Automated Assessment of Physical Objects</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,733,444</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Aug 4, 2020</span>
+        </div>
+        <div class="patent-desc">Autonomous conveyor-based system using robotics, computer vision, x-ray imaging, and machine learning to unpack, assess, appraise, and auto-list physical objects — supporting smart auction and automated value settlement.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10733444" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🛍️</div>
+      <div class="patent-body">
+        <div class="patent-title">Apparatus and Method for Providing Item Interaction with a Virtual Store</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,600,100</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Mar 24, 2020</span>
+        </div>
+        <div class="patent-desc">Virtual reality retail system allowing customers to interact with items in a simulated store environment, enabling immersive product browsing and purchase without physical presence.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10600100" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🔋</div>
+      <div class="patent-body">
+        <div class="patent-title">System and Method for Autonomous Battery Replacement</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,562,398</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Feb 18, 2020</span>
+        </div>
+        <div class="patent-desc">Automated system enabling UAVs and autonomous vehicles to replace depleted batteries without human intervention, extending operational range and enabling continuous delivery missions.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10562398" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">📦</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Locker Delivery</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,399,775</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Sep 3, 2019</span>
+        </div>
+        <div class="patent-desc">Autonomous delivery system using UAVs and ground vehicles to transport packages to smart lockers, with secure authentication and customer notification upon delivery completion.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10399775" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🚗</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Ganged Vehicles</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,254,766</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Apr 9, 2019</span>
+        </div>
+        <div class="patent-desc">System for coordinating multiple autonomous vehicles operating in tandem ("ganged") for synchronized logistics — enabling efficient multi-vehicle delivery fleets with shared navigation and task distribution.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10254766" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🗄️</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Locker Delivery (Continuation)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,227,178</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Mar 12, 2019</span>
+        </div>
+        <div class="patent-desc">Continuation patent expanding on autonomous locker delivery methods, covering additional embodiments of UAV-to-locker handoff protocols and customer access workflows.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10227178" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">✈️</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Drone and Tool Selection and Delivery</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 10,126,746</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+          <span class="patent-date">Granted Nov 13, 2018</span>
+        </div>
+        <div class="patent-desc">Intelligent system for autonomously selecting the appropriate UAV and payload tooling based on delivery requirements, then executing the mission — covering tool attachment, flight path optimization, and delivery confirmation.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US10126746" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status granted">Granted</span>
+    </div>
+
+  </div>
+
+  <!-- PUBLISHED APPLICATIONS -->
+  <div class="fade-up" style="margin-bottom:1.2rem;">
+    <h3 style="font-size:0.8rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--accent2);margin-bottom:1rem;">Published Applications</h3>
+  </div>
+  <div class="patent-list">
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🚐</div>
+      <div class="patent-body">
+        <div class="patent-title">Mobile Trailer Systems for UAV Deployment</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0070995</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Mobile ground-based trailer platforms that serve as launch, recovery, and charging stations for drone fleets — enabling flexible UAV operations in dynamic delivery zones.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190070995" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">👁️</div>
+      <div class="patent-body">
+        <div class="patent-title">Detecting Humans via Unmanned Vehicle</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0144645</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">UAV-based system for detecting and classifying human presence in delivery zones to enable safe autonomous navigation around pedestrians and bystanders.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180144645" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🤖</div>
+      <div class="patent-body">
+        <div class="patent-title">Drone for Autonomously Completing a Task</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0173235</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">General-purpose autonomous drone system capable of dynamically selecting and completing tasks based on mission parameters — spanning delivery, inspection, and operational support.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180173235" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🚐</div>
+      <div class="patent-body">
+        <div class="patent-title">Automated Vehicle Breakdown Recovery</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0047577</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">System for autonomously detecting and responding to delivery vehicle breakdowns, dispatching recovery assets and rerouting deliveries with minimal human involvement.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190047577" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">📡</div>
+      <div class="patent-body">
+        <div class="patent-title">Unmanned Mobile Control Point Delivery Systems</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0034877</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Mobile autonomous command-and-control infrastructure for coordinating UAV delivery networks from dynamic ground-based control points.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190034877" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🚚</div>
+      <div class="patent-body">
+        <div class="patent-title">Delivery of Commercial Products via Autonomous Vehicles</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0034856</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">End-to-end framework for delivering commercial goods using fully autonomous ground and aerial vehicles, including route planning, handoff protocols, and customer delivery confirmation.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190034856" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🏬</div>
+      <div class="patent-body">
+        <div class="patent-title">Product Distribution System</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0341275</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Integrated system for autonomous multi-modal product distribution — coordinating UAVs, ground vehicles, and locker networks into a unified last-mile logistics platform.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180341275" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🤝</div>
+      <div class="patent-body">
+        <div class="patent-title">Collaborative Shopping Apparatus</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0174122</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Virtual/augmented reality apparatus enabling multiple users to shop together in a shared digital retail environment, combining social interaction with e-commerce.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180174122" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🛒</div>
+      <div class="patent-body">
+        <div class="patent-title">Systems and Methods of Fulfilling Product Orders</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2017/0200117</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Automated order fulfillment framework combining UAVs, autonomous ground vehicles, and smart lockers to process and complete retail orders with minimal human intervention.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20170200117" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <!-- Remaining published apps - condensed grid -->
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🖥️</div>
+      <div class="patent-body">
+        <div class="patent-title">Virtual-Reality Apparatus / Virtual Shopping Environment</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0005312 · US 2018/0060948</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">VR hardware and software systems for fully immersive virtual retail — enabling customers to browse, interact with, and purchase products in a simulated store.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180005312" target="_blank" class="patent-link">US 2018/0005312 ↗</a>
+          <a href="https://patents.google.com/patent/US20180060948" target="_blank" class="patent-link">US 2018/0060948 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">⚡</div>
+      <div class="patent-body">
+        <div class="patent-title">Conserving Resources During Virtual Shopping</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0188781 · US 2018/0124351</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Techniques for reducing compute and bandwidth overhead during virtual retail experiences — dynamically adjusting rendering quality and asset loading based on user device capabilities.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190188781" target="_blank" class="patent-link">US 2019/0188781 ↗</a>
+          <a href="https://patents.google.com/patent/US20180124351" target="_blank" class="patent-link">US 2018/0124351 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">👤</div>
+      <div class="patent-body">
+        <div class="patent-title">Adjusting Avatar Display Quality / Item Interaction in Virtual Store</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0121997 · US 2018/0068368</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Systems for dynamically adjusting avatar rendering fidelity and enabling nuanced item interactions within virtual retail environments based on context and resources.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180121997" target="_blank" class="patent-link">US 2018/0121997 ↗</a>
+          <a href="https://patents.google.com/patent/US20180068368" target="_blank" class="patent-link">US 2018/0068368 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">📍</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Locker Delivery (Applications)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0337722 · US 2019/0168966 · US 2018/0170675</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Series of published applications covering additional embodiments and improvements to the autonomous locker delivery system — including new vehicle types, authentication methods, and deployment scenarios.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190337722" target="_blank" class="patent-link">2019/0337722 ↗</a>
+          <a href="https://patents.google.com/patent/US20190168966" target="_blank" class="patent-link">2019/0168966 ↗</a>
+          <a href="https://patents.google.com/patent/US20180170675" target="_blank" class="patent-link">2018/0170675 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🔬</div>
+      <div class="patent-body">
+        <div class="patent-title">Automated Assessment of Physical Objects (Applications)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0251353 · US 2018/0018519</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Published continuation and original application filings underlying the granted US 10,733,444 — covering the autonomous physical object assessment and smart auction system.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190251353" target="_blank" class="patent-link">2019/0251353 ↗</a>
+          <a href="https://patents.google.com/patent/US20180018519" target="_blank" class="patent-link">2018/0018519 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">✈️</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Drone and Tool Selection and Delivery (Applications)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2019/0011919 · US 2018/0157258</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Original and continuation applications underlying the granted US 10,126,746 — covering additional drone tool-selection and task-execution embodiments.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20190011919" target="_blank" class="patent-link">2019/0011919 ↗</a>
+          <a href="https://patents.google.com/patent/US20180157258" target="_blank" class="patent-link">2018/0157258 ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🔋</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Battery Replacement (Application)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0141453</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Original application underlying the granted US 10,562,398 — covering the autonomous battery swap system for UAVs and ground delivery vehicles.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180141453" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+    <div class="patent-item fade-up">
+      <div class="patent-icon">🚗</div>
+      <div class="patent-body">
+        <div class="patent-title">Autonomous Ganged Vehicles (Application)</div>
+        <div class="patent-meta">
+          <span class="patent-num">US 2018/0129223</span>
+          <span class="patent-assignee">Walmart Apollo LLC</span>
+        </div>
+        <div class="patent-desc">Original application underlying the granted US 10,254,766 — covering synchronized multi-vehicle autonomous operation for logistics and delivery.</div>
+        <div class="patent-links-row">
+          <a href="https://patents.google.com/patent/US20180129223" target="_blank" class="patent-link">Google Patents ↗</a>
+        </div>
+      </div>
+      <span class="patent-status filed">Published</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="fade-up">
+    <p class="section-label">// thoughts & insights</p>
+    <div class="blog-header-row">
+      <div>
+        <h2>Blog</h2>
+        <div class="divider"></div>
+      </div>
+      <a href="https://medium.com/@nicholasantel" target="_blank" class="medium-badge">
+        <span class="dot"></span> Read on Medium ↗
+      </a>
+    </div>
+  </div>
+
+  <div class="blog-grid" id="blogGrid"></div>
+
+  <div class="blog-cta-row fade-up">
+    <p>I publish on Medium — insights on AI, emerging tech, and building in the real world.</p>
+    <a href="https://medium.com/@nicholasantel" target="_blank" class="btn btn-outline">Follow on Medium ↗</a>
+  </div>
+</section>
+
+<script>
+// ============================================================
+//  BLOG POSTS — add new posts here at the TOP of the array
+//  Format: { title, date, category, excerpt, url }
+//  The 3 most recent posts show automatically.
+//  If a post appears in both "top" and "recent" it shows once.
+// ============================================================
+const BLOG_POSTS = [
+  {
+    title: "Creating a Simple Yet Effective Website with Claude",
+    date: "Feb 2026",
+    category: "AI",
+    excerpt: "Coding has always been the one thing that eluded me — until Claude. I uploaded my resume, described my vision, and watched a fully personalized portfolio come together. Here's the honest story of how it happened.",
+    url: "https://www.publish0x.com/the-world-of-ai/creating-a-simple-yet-effective-website-with-claude-xqvqzxw" // TODO: update to Medium URL when reposted
+  },
+  // Add your next post above this line ↑
+];
+
+function renderBlogCards() {
+  const grid = document.getElementById('blogGrid');
+  if (!grid || !BLOG_POSTS.length) return;
+
+  // Deduplicate by URL, show most recent 3 (array order = newest first)
+  const seen = new Set();
+  const posts = BLOG_POSTS.filter(p => {
+    if (seen.has(p.url)) return false;
+    seen.add(p.url);
+    return true;
+  }).slice(0, 3);
+
+  grid.innerHTML = posts.map(post => `
+    <div class="blog-card fade-up">
+      <div class="blog-card-top"></div>
+      <div class="blog-card-body">
+        <div class="blog-meta">
+          <span class="blog-cat">${post.category}</span>
+          <span class="blog-date">${post.date}</span>
+        </div>
+        <div class="blog-title">${post.title}</div>
+        <div class="blog-excerpt">${post.excerpt}</div>
+        <a href="${post.url}" target="_blank" class="blog-link">Read on Medium →</a>
+      </div>
+    </div>
+  `).join('');
+
+  // Re-observe new cards for fade-in animation
+  grid.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.1}s`;
+    observer.observe(el);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', renderBlogCards);
+</script>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="fade-up">
+    <p class="section-label">// let's work together</p>
+    <h2>Get In Touch</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-wrap fade-up">
+    <div class="contact-info">
+      <p>Whether you're looking to build AI systems, need blockchain strategy, have an IP challenge, or want to explore a collaboration — I'm always open to interesting conversations.</p>
+      <div class="contact-links">
+        <a href="/cdn-cgi/l/email-protection#054b6c666d6a6964762b446b716069456a7071696a6a6e2b666a68" class="contact-link">
+          <div class="contact-link-icon">✉️</div><span class="__cf_email__" data-cfemail="83cdeae0ebecefe2f0adc2edf7e6efc3ecf6f7efecece8ade0ecee">[email&#160;protected]</span>
+        </a>
+        <a href="https://linkedin.com/in/nicholas-antel-80644a135" target="_blank" class="contact-link">
+          <div class="contact-link-icon">💼</div>linkedin.com/in/nicholas-antel
+        </a>
+        <a href="https://github.com/antelnick-ops" target="_blank" class="contact-link">
+          <div class="contact-link-icon">🐙</div>github.com/antelnick-ops
+        </a>
+      </div>
+    </div>
+
+    <form onsubmit="handleSubmit(event)">
+      <div class="form-row">
+        <div>
+          <label for="name">Name</label>
+          <input id="name" type="text" placeholder="Your Name" required />
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" type="email" placeholder="you@company.com" required />
+        </div>
+      </div>
+      <div>
+        <label for="subject">Subject</label>
+        <input id="subject" type="text" placeholder="AI Project · Consulting · Partnership · Other" />
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea id="message" placeholder="Tell me what you're working on..." required></textarea>
+      </div>
+      <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  Built by <span>Nicholas Antel</span> · 2026 · Dynamic Innovative Solutions LLC
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.1 }
+  );
+  document.querySelectorAll('.fade-up').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 5) * 0.07}s`;
+    observer.observe(el);
+  });
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = '✓ Message Sent!';
+      btn.style.background = 'linear
