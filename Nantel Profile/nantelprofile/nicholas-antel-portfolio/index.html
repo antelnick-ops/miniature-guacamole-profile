@@ -1055,8 +1055,8 @@ document.addEventListener('DOMContentLoaded', renderBlogCards);
     <div class="contact-info">
       <p>Whether you're looking to build AI systems, need blockchain strategy, have an IP challenge, or want to explore a collaboration — I'm always open to interesting conversations.</p>
       <div class="contact-links">
-        <a href="/cdn-cgi/l/email-protection#054b6c666d6a6964762b446b716069456a7071696a6a6e2b666a68" class="contact-link">
-          <div class="contact-link-icon">✉️</div><span class="__cf_email__" data-cfemail="83cdeae0ebecefe2f0adc2edf7e6efc3ecf6f7efecece8ade0ecee">[email&#160;protected]</span>
+        <a href="mailto:Nicholas.Antel@outlook.com" class="contact-link">
+          <div class="contact-link-icon">✉️</div>Nicholas.Antel@outlook.com
         </a>
         <a href="https://linkedin.com/in/nicholas-antel-80644a135" target="_blank" class="contact-link">
           <div class="contact-link-icon">💼</div>linkedin.com/in/nicholas-antel
@@ -1095,7 +1095,7 @@ document.addEventListener('DOMContentLoaded', renderBlogCards);
   Built by <span>Nicholas Antel</span> · 2026 · Dynamic Innovative Solutions LLC
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
@@ -1112,4 +1112,15 @@ document.addEventListener('DOMContentLoaded', renderBlogCards);
     btn.disabled = true;
     setTimeout(() => {
       btn.textContent = '✓ Message Sent!';
-      btn.style.background = 'linear
+      btn.style.background = 'linear-gradient(135deg, #059669, #047857)';
+      e.target.reset();
+      setTimeout(() => {
+        btn.textContent = 'Send Message →';
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 3000);
+    }, 1000);
+  }
+</script>
+</body>
+</html>
