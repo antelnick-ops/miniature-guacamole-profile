@@ -712,7 +712,7 @@ document.addEventListener('DOMContentLoaded', renderBlogCards);
         const inner = container.innerHTML;
         const s = inner.indexOf('<!-- DYNAMIC_PROJECTS_START -->');
         const e = inner.indexOf('<!-- DYNAMIC_PROJECTS_END -->');
-        if (s !== -1 && e !== -1) { container.innerHTML = inner.substring(0, s + 30) + '\n' + html + '\n' + inner.substring(e); }
+        if (s !== -1 && e !== -1) { container.innerHTML = inner.substring(0, s + 31) + '\n' + html + '\n' + inner.substring(e); }
         else { container.innerHTML = html; }
         container.querySelectorAll('.fade-up').forEach((el, i) => { el.style.transitionDelay = `${(i % 6) * 0.08}s`; observer.observe(el); });
       } catch (err) { console.log('GitHub API unavailable, using static fallback.'); }
