@@ -308,6 +308,59 @@
     .fade-up { opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
 
+    /* SERVICES */
+    #services { background: var(--bg); }
+    .pricing-label {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent2); font-weight: 700; margin-bottom: 0.3rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .pricing-label::before { content: ''; display: block; width: 18px; height: 1px; background: var(--accent2); }
+    .pricing-rows { display: flex; flex-direction: column; gap: 3px; margin-top: 1rem; margin-bottom: 2.5rem; }
+    .pricing-row {
+      display: grid; grid-template-columns: 1fr auto;
+      align-items: center; gap: 1.5rem;
+      padding: 1.25rem 1.4rem; border-radius: 10px;
+      border: 1px solid transparent; transition: background 0.2s, border-color 0.2s;
+    }
+    .pricing-row:hover { background: var(--card); border-color: var(--border); }
+    .pricing-row:hover .pr-price { color: var(--accent2); }
+    .pr-name { font-size: 0.95rem; font-weight: 600; color: var(--text); margin-bottom: 0.2rem; }
+    .pr-desc { font-size: 0.8rem; color: var(--muted); }
+    .pr-price { font-size: 1rem; font-weight: 700; color: var(--text); white-space: nowrap; text-align: right; transition: color 0.2s; }
+    .pr-price.neg { color: var(--accent); }
+    .pricing-divider { height: 1px; background: var(--border); margin: 0.5rem 0 2rem; }
+    .premium-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+    .premium-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1.6rem;
+      transition: border-color 0.3s, transform 0.25s, box-shadow 0.25s;
+      position: relative; overflow: hidden;
+    }
+    .premium-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scaleX(0); transform-origin: left; transition: transform 0.3s;
+    }
+    .premium-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 8px 40px rgba(124,58,237,0.15); }
+    .premium-card:hover::before { transform: scaleX(1); }
+    .pc-icon { font-size: 1.6rem; margin-bottom: 1rem; }
+    .pc-name { font-size: 0.97rem; font-weight: 700; color: var(--text); margin-bottom: 0.4rem; }
+    .pc-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+    .pc-rate {
+      font-size: 1rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .services-cta {
+      margin-top: 3rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 2rem 2.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 1.5rem; flex-wrap: wrap;
+    }
+    .services-cta h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .services-cta p { font-size: 0.85rem; color: var(--muted); }
+
     /* MOBILE */
     @media (max-width: 768px) {
       .about-grid, .contact-wrap { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -315,6 +368,10 @@
       .project-card.featured { grid-column: span 1; }
       .nav-links { display: none; }
       h1 { letter-spacing: -1px; }
+      .premium-grid { grid-template-columns: 1fr; }
+      .pricing-row { grid-template-columns: 1fr; }
+      .pr-price { text-align: left; }
+      .services-cta { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -328,6 +385,7 @@
     <li><a href="#experience">Experience</a></li>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#patents">Patents</a></li>
+    <li><a href="#services">Services</a></li>
     <li><a href="#blog">Blog</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -571,6 +629,96 @@
   </div>
 </section>
 
+<!-- SERVICES -->
+<section id="services">
+  <div class="fade-up">
+    <p class="section-label">// what i offer</p>
+    <h2>Services &amp; Pricing</h2>
+    <div class="divider"></div>
+  </div>
+
+  <!-- Web & App Dev -->
+  <div class="fade-up">
+    <div class="pricing-label">Web Design &amp; App Development</div>
+    <div class="pricing-rows">
+      <div class="pricing-row">
+        <div>
+          <div class="pr-name">Simple Landing Page</div>
+          <div class="pr-desc">Single page · mobile-ready · contact form included</div>
+        </div>
+        <div class="pr-price">$500 – $1,500</div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pr-name">5-Page Business Site</div>
+          <div class="pr-desc">Home · About · Services · Blog · Contact</div>
+        </div>
+        <div class="pr-price">$1,500 – $3,500</div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pr-name">WordPress / Basic E-Commerce</div>
+          <div class="pr-desc">WooCommerce or Shopify · setup + full customization</div>
+        </div>
+        <div class="pr-price">$3,000 – $6,000</div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pr-name">Custom Web / Mobile App</div>
+          <div class="pr-desc">Dashboards · portals · PWAs · scoped per project</div>
+        </div>
+        <div class="pr-price neg">Negotiable</div>
+      </div>
+      <div class="pricing-row">
+        <div>
+          <div class="pr-name">Monthly Maintenance Retainer</div>
+          <div class="pr-desc">Updates · security · hosting support · minor edits</div>
+        </div>
+        <div class="pr-price">$300 – $800 <span style="font-size:0.78rem;color:var(--muted);font-weight:400;">/mo</span></div>
+      </div>
+    </div>
+
+    <div class="pricing-divider"></div>
+
+    <!-- Premium Services -->
+    <div class="pricing-label">Premium Consulting &amp; AI Services</div>
+    <div class="premium-grid" style="margin-top:1rem;">
+      <div class="premium-card">
+        <div class="pc-icon">🤖</div>
+        <div class="pc-name">AI Agent Development</div>
+        <div class="pc-desc">Multi-agent orchestration, LLM systems, and workflow automation built for your specific industry and use case.</div>
+        <div class="pc-rate">$5,000 – $25,000+</div>
+      </div>
+      <div class="premium-card">
+        <div class="pc-icon">⚡</div>
+        <div class="pc-name">AI-Powered App Development</div>
+        <div class="pc-desc">Industry-specific apps with custom knowledge bases and AI-driven workflows that actually solve real problems.</div>
+        <div class="pc-rate">$8,000 – $30,000</div>
+      </div>
+      <div class="premium-card">
+        <div class="pc-icon">📋</div>
+        <div class="pc-name">IP / Patent Strategy</div>
+        <div class="pc-desc">Patent drafting, IP gap analysis, and inventor strategy — from a named inventor on 7 granted US patents with NASA, DARPA &amp; FAA experience.</div>
+        <div class="pc-rate">$150 – $300 / hr</div>
+      </div>
+      <div class="premium-card">
+        <div class="pc-icon">🧭</div>
+        <div class="pc-name">Tech Strategy Consulting</div>
+        <div class="pc-desc">AI roadmaps, emerging tech advisory, and startup planning grounded in real-world deployments across enterprise and federal environments.</div>
+        <div class="pc-rate">$150 – $250 / hr</div>
+      </div>
+    </div>
+
+    <div class="services-cta">
+      <div>
+        <h3>Ready to start a project?</h3>
+        <p>Every engagement starts with a free 30-min discovery call.</p>
+      </div>
+      <a href="#contact" class="btn btn-primary">Get in Touch →</a>
+    </div>
+  </div>
+</section>
+
 <!-- BLOG -->
 <section id="blog">
   <div class="fade-up">
@@ -614,7 +762,8 @@ function renderBlogCards() {
     </div>`).join('');
   grid.querySelectorAll('.fade-up').forEach((el, i) => { el.style.transitionDelay = `${i * 0.1}s`; observer.observe(el); });
 }
-document.addEventListener('DOMContentLoaded', renderBlogCards);
+
+
 </script>
 
 <!-- CONTACT -->
@@ -647,12 +796,14 @@ document.addEventListener('DOMContentLoaded', renderBlogCards);
 
 <footer>Built by <span>Nicholas Antel</span> · 2026 · Dynamic Innovative Solutions LLC</footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
     { threshold: 0.1 }
   );
   document.querySelectorAll('.fade-up').forEach((el, i) => { el.style.transitionDelay = `${(i % 5) * 0.07}s`; observer.observe(el); });
+
+  renderBlogCards();
 
   function handleSubmit(e) {
     e.preventDefault();
